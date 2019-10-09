@@ -152,12 +152,13 @@ namespace Ksu.Cis300.NameLookup
             else if (t.RightChild != null)
             {
                 min = t.Data;
-                return t;
+                tempTree = new BinaryTreeNode<KeyValuePair<TKey, TValue>>(t.Data, null, t.RightChild);
+                return tempTree;
             }
             else
             {
                 min = t.Data;
-                return t;
+                return tempTree = null;
             }
         }
 
@@ -195,12 +196,12 @@ namespace Ksu.Cis300.NameLookup
                 if (t.RightChild != null)
                 {   
                     BinaryTreeNode<KeyValuePair<TKey, TValue>> tempNode = RemoveMininumKey(t.RightChild, out min);
-                    returnTree = new BinaryTreeNode<KeyValuePair<TKey, TValue>>(tempNode.Data, tempNode.LeftChild, tempNode.RightChild);
+                    returnTree = new BinaryTreeNode<KeyValuePair<TKey, TValue>>(min, t.LeftChild, tempNode);
                 }
                 else if (t.LeftChild != null)
                 {
                     BinaryTreeNode<KeyValuePair<TKey, TValue>> tempNode = RemoveMininumKey(t.LeftChild, out min);
-                    returnTree = new BinaryTreeNode<KeyValuePair<TKey, TValue>>(tempNode.Data, tempNode.LeftChild, tempNode.RightChild);
+                    returnTree = new BinaryTreeNode<KeyValuePair<TKey, TValue>>(min, tempNode, t.RightChild);
                 }
                 else
                 {
